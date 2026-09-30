@@ -33,6 +33,9 @@ public class ServerEcho {
             // Mando un messaggio al Client
             out.println(message.toUpperCase());
 
+            out.close();
+            in.close();
+
         } catch (IOException e) {
             System.out.println(e);
         }

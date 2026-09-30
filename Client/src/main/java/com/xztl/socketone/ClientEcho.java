@@ -38,6 +38,9 @@ public class ClientEcho {
             
             System.out.println("Server response: " + response);
 
+            out.close();
+            in.close();
+
         } catch (IOException e) {
             System.out.println(e);
         }
