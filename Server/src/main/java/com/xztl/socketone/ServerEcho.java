@@ -12,29 +12,33 @@ import java.net.Socket;
 public class ServerEcho {
 
     public ServerEcho(int port) {
+        String message = "";
 
         // Apro una ServerSocket dentro le parentesi per farla chiudere
         // in automatico alla fine del blocco try-catch
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println("Server started on port: " + port);
-
+            
             // Aspetto la connessione del client
             Socket client = serverSocket.accept();
-
+            
             // Necessario per leggere stringhe
             BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
             
             // Necessario per scrivere stringhe
             PrintWriter out = new PrintWriter(client.getOutputStream(), true);
             
-            // Aspetto un messaggio dal Client
-            String message = in.readLine();
+            while (!message.equals("exit")) {
 
-            // Mando un messaggio al Client
-            out.println(message.toUpperCase());
+                // Aspetto un messaggio dal Client
+                message = in.readLine();
 
-            out.close();
-            in.close();
+                System.out.println("Message received: " + message);
+
+                // Mando un messaggio al Client
+                out.println(message.toUpperCase());
+
+            }
 
         } catch (IOException e) {
             System.out.println(e);
